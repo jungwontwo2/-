@@ -67,10 +67,13 @@ public class BoardController {
         boardService.delete(id);
         return "redirect:/board";
     }
+
+    //글 전체 조회(페이징)
+    //   /board/paging?orderby={orderCriteria}
     @GetMapping("/paging")
-    public String paging(@PageableDefault(page = 1) Pageable pageable, Model model) {
+    public String paging(@PageableDefault(page = 1) Pageable pageable, Model model,@RequestParam(required = false,defaultValue = "id",value = "orderby") String orderCriteria) {
 //        pageable.getPageNumber();
-        Page<BoardDTO> boardList = boardService.paging(pageable);
+        Page<BoardDTO> boardList = boardService.paging(pageable,orderCriteria);
         //System.out.println("boardList = " + boardList.toList());
         //System.out.println("boardList = " + boardList.getNumber());
         System.out.println(boardList.getPageable());
@@ -91,6 +94,7 @@ public class BoardController {
         model.addAttribute("boardList", boardList);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
+        model.addAttribute("orderCriteria",orderCriteria);
         //System.out.println("startPage = " + startPage);
         //System.out.println("endPage = " + endPage);
         return "paging";

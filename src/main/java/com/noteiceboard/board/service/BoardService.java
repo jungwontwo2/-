@@ -109,13 +109,13 @@ public class BoardService {
         boardRepository.deleteById(id);
     }
 
-    public Page<BoardDTO> paging(Pageable pageable){
+    public Page<BoardDTO> paging(Pageable pageable,String orderCriteria){
         System.out.println(pageable.getPageNumber());
         int page= pageable.getPageNumber()-1;
         //System.out.println("page = " + page);
         int pageLimit=3;
 
-        Page<BoardEntity> boardEntities = boardRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
+        Page<BoardEntity> boardEntities = boardRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, orderCriteria)));
 //        System.out.println("boardEntities = " + boardEntities.toString());
 //        System.out.println("boardEntities = " + boardEntities);
 //        System.out.println("boardEntities.getContent() = " + boardEntities.getContent()); // 요청 페이지에 해당하는 글
