@@ -24,11 +24,13 @@ public class BoardDTO {
     private int boardHits;
     private LocalDateTime boardCreatedTime;
     private LocalDateTime boardUpdatedTime;
-
+    private List<String> comments;
     private List<MultipartFile> boardFile;//save.html -> Controller 파일 담는 용도
     private List<String> originalFileName;//원본 파일 이름
     private List<String> storedFileName;//서버 저장용 파일 이름 //똑같은 파일의 이름이 있을수도 있으니 서버에는 다른이름으로 저장하기 위함
     private int fileAttached;//파일 첨부 여부(첨부 1, 미첨부 0)
+
+
     public BoardDTO(Long id, String boardWriter, String boardTitle, int boardHits, LocalDateTime boardCreatedTime) {
         this.id = id;
         this.boardWriter = boardWriter;

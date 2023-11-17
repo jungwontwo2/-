@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
+<!--  <link rel="stylesheet" href="/css/style.css">-->
   <meta charset="UTF-8">
   <title>detail</title>
+<!--  jquery cdn-->
+  <script
+          src="https://code.jquery.com/jquery-3.7.1.min.js"
+          integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+          crossorigin="anonymous"></script>
 </head>
 <body>
 <table>
@@ -33,15 +40,56 @@
   <tr th:if="${board.fileAttached==1}">
     <th>image</th>
     <td th:each="fileName: ${board.storedFileName}">
-      <img th:src="@{|/upload/${fileName}|}" alt="">
+      <img class="image" th:src="@{|/upload/${fileName}|}" alt="">
     </td>
   </tr>
 </table>
 <button onclick="listReq()">목록</button>
 <button onclick="updateReq()">수정</button>
 <button onclick="deleteReq()">삭제</button>
+
+<!--댓글 작성 부분-->
+<div id="comment-write">
+  <input type="text" id="commentWriter" placeholder="작성자">
+  <input type="text" id="commentContents" placeholder="내용">
+  <button id="comment-write-btn" onclick="commentWrite()">댓글작성</button>
+</div>
+<!--댓글 출력 부분-->
+<div id="comment-list">
+
+</div>
 </body>
 <script th:inline="javascript">
+    const commentWrite = () =>{
+    //댓글 작성 부분을 보면 id를 설정해둠
+    //그래서 그 id를 getElementById.value로 해당 Id의 값을 가져옴
+      const writer = document.getElementById("commentWriter").value;
+      const contents = document.getElementById("commentContents").value;
+      //{id}로 들어오게 될 때 BoardController에서 boardService.findById(id)로 boardDTO를 찾고
+      //그 boardDTO를 board라는 변수에 담아서 넣음
+      //board.id라는 것은 {id}로 가져온 BoardDTO의 id인 셈
+      const id = [[${board.id}]]; //게시글 번호
+      console.log("작성자: ",writer);
+      console.log("내용: ",contents);
+      $.ajax({
+      //요청방식:포스트,요청주소/comment/save, 요청데이터: 작성자, 작성내용, 게시글번호
+          type:"post",
+          url:"/comment/save",
+          data:{
+          "commentWriter":writer,
+          "commentContents":contents,
+          "boardId": id
+          },
+          success: function(res){
+          //요청성공이라고 출력하고 res(data)를 보냄
+          //CommentController에서 ModelAttribute를 통해 CommentDTO에 data를 담음
+          console.log("요청 성공detail",res);
+          },
+          error: function(err){
+          console.log("요청 실패",err);
+          }
+      });
+    }
     const listReq = () => {
         console.log("목록 요청");
         location.href = "/board/";

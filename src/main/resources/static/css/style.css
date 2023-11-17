@@ -1,3 +1,20 @@
+@charset "utf-8";
+#form-commentInfo{
+    width: 100%;
+}
+
+#comment-count{
+    margin-bottom: 10px;
+}
+
+#comment-input{
+    width: 50%;
+    height: 3.3em;
+}
+.image{
+    width:300px;
+    height:300px;
+}
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -20,6 +37,13 @@ section.notice {
   padding: 15px 0;
   background-color: #f9f7f9;
 }
+.search-window {
+  padding: 15px 0;
+  background-color: #f9f7f9;
+}
+#board-search .select-order{
+  float:right;
+}
 #board-search .search-window .search-wrap {
   position: relative;
 /*   padding-right: 124px; */
@@ -41,7 +65,7 @@ section.notice {
 }
 #board-search .search-window .search-wrap .btn {
   position: absolute;
-  right: 0;
+  right: 100;
   top: 0;
   bottom: 0;
   width: 108px;
@@ -138,9 +162,11 @@ section.notice {
   color: #fff;
 }
 
-.btn-dark {
-  background: #555;
-  color: #fff;
+.btn-silver {
+  background: #c0c0c0;
+  color: #000000;
+  font-size: 15px;
+  float:right;
 }
 
 .btn-dark:hover, .btn-dark:focus {

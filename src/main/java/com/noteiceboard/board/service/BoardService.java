@@ -29,6 +29,7 @@ public class BoardService {
     private final BoardFileRepository boardFileRepository;
 
     public void save(BoardDTO boardDTO) throws IOException {
+        //첨부파일이 없는경우 그냥 DTO를 Entity로 바꾸고 저장
         if(boardDTO.getBoardFile().isEmpty()){
             BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO);
             boardRepository.save(boardEntity);
@@ -110,10 +111,10 @@ public class BoardService {
     }
 
     public Page<BoardDTO> paging(Pageable pageable,String orderCriteria){
-        System.out.println(pageable.getPageNumber());
+        //사용자에게는 1페이지로 보이지만 컴퓨터는 0부터 시작이므로 0페이지라고 말해줘야 함.
         int page= pageable.getPageNumber()-1;
-        //System.out.println("page = " + page);
-        int pageLimit=3;
+        //한 페이지에 몇개의 게시물을 보여줄지
+        int pageLimit=5;
 
         Page<BoardEntity> boardEntities = boardRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, orderCriteria)));
 //        System.out.println("boardEntities = " + boardEntities.toString());

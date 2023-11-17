@@ -24,17 +24,23 @@ public class BoardEntity extends BaseEntity{
     @Column
     private String boardPass;
 
-    @Column String boardTitle;
+    @Column
+    String boardTitle;
 
-    @Column(length = 500) String boardContents;
+    @Column(length = 500)
+    String boardContents;
 
-    @Column private int boardHits;
+    @Column
+    private int boardHits;
 
-    @Column private int fileAttached; //1이면 파일 있고 0이면 파일 없고
+    @Column
+    private int fileAttached; //1이면 파일 있고 0이면 파일 없고
 
     @OneToMany(mappedBy = "boardEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
     private List<BoardFileEntity> boardFileEntityList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "boardEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
+    private List<CommentEntity> commentEntityList = new ArrayList<>();
     public static BoardEntity toSaveEntity(BoardDTO boardDTO){
         BoardEntity boardEntity = new BoardEntity();
         boardEntity.setBoardWriter(boardDTO.getBoardWriter());
@@ -43,6 +49,7 @@ public class BoardEntity extends BaseEntity{
         boardEntity.setBoardContents(boardDTO.getBoardContents());
         boardEntity.setBoardHits(0);
         boardEntity.setFileAttached(0);//파일 없음
+
         return boardEntity;
     }
     //파일 있는 boardDTO를 boardEntity.setFileAttached(1)로 바꿔주고 boardEntity를 반환
@@ -54,6 +61,7 @@ public class BoardEntity extends BaseEntity{
         boardEntity.setBoardContents(boardDTO.getBoardContents());
         boardEntity.setBoardHits(0);
         boardEntity.setFileAttached(1);//파일 있음
+
         return boardEntity;
     }
     public static BoardEntity toUpdateEntity(BoardDTO boardDTO){
@@ -64,6 +72,7 @@ public class BoardEntity extends BaseEntity{
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
         boardEntity.setBoardHits(boardEntity.getBoardHits());
+
         return boardEntity;
     }
 }

@@ -2,7 +2,6 @@ package com.noteiceboard.board.controller;
 
 import com.noteiceboard.board.dto.BoardDTO;
 import com.noteiceboard.board.service.BoardService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -98,6 +97,11 @@ public class BoardController {
         //System.out.println("startPage = " + startPage);
         //System.out.println("endPage = " + endPage);
         return "paging";
-
     }
+//    @PostMapping("/comment")
+//    public String comment(@ModelAttribute("comment") String comment){
+//        CommentEntity commentEntity = new CommentEntity();
+//        commentEntity.setComment(comment);
+//
+//    }
 }
