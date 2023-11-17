@@ -1,7 +1,9 @@
 package com.noteiceboard.board.controller;
 
 import com.noteiceboard.board.dto.BoardDTO;
+import com.noteiceboard.board.dto.CommentDTO;
 import com.noteiceboard.board.service.BoardService;
+import com.noteiceboard.board.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +20,7 @@ import java.util.List;
 @RequestMapping("/board")
 public class BoardController {
     private final BoardService boardService;
+    private final CommentService commentService;
 
     @GetMapping("/save")
     public String saveForm() {
@@ -43,6 +46,9 @@ public class BoardController {
     public String findById(@PathVariable Long id, Model model) {
         boardService.updateHits(id);
         BoardDTO boardDTO = boardService.findById(id);
+        //댓글목록 가져오기
+        List<CommentDTO> commentDTOList = commentService.findAll(id);
+        model.addAttribute("commentList",commentDTOList);
         model.addAttribute("board", boardDTO);
         return "detail";
     }

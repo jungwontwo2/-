@@ -56,7 +56,20 @@
 </div>
 <!--댓글 출력 부분-->
 <div id="comment-list">
-
+  <table>
+    <tr>
+      <th>댓글번호</th>
+      <th>작성자</th>
+      <th>내용</th>
+      <th>작성시간</th>
+    </tr>
+    <tr th:each="comment: ${commentList}">
+      <td th:text="${comment.id}"></td>
+      <td th:text="${comment.commentWriter}"></td>
+      <td th:text="${comment.commentContents}"></td>
+      <td th:text="${comment.commentCreatedTime}"></td>
+    </tr>
+  </table>
 </div>
 </body>
 <script th:inline="javascript">
@@ -84,10 +97,27 @@
           //요청성공이라고 출력하고 res(data)를 보냄
           //CommentController에서 ModelAttribute를 통해 CommentDTO에 data를 담음
           console.log("요청 성공detail",res);
-          },
-          error: function(err){
-          console.log("요청 실패",err);
-          }
+          let output = "<table>";
+               output += "<tr><th>댓글번호</th>";
+               output += "<th>작성자</th>";
+               output += "<th>내용</th>";
+               output += "<th>작성시간</th></tr>";
+               for (let i in res) {
+                   output += "<tr>";
+                   output += "<td>" + res[i].id + "</td>";
+                   output += "<td>" + res[i].commentWriter + "</td>";
+                   output += "<td>" + res[i].commentContents + "</td>";
+                   output += "<td>" + res[i].commentCreatedTime + "</td>";
+                   output += "</tr>";
+               }
+               output += "</table>";
+               document.getElementById('comment-list').innerHTML = output;
+               document.getElementById('commentWriter').value = '';
+               document.getElementById('commentContents').value = '';
+           },
+           error: function (err) {
+               console.log("요청실패", err);
+           }
       });
     }
     const listReq = () => {
