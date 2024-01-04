@@ -81,7 +81,7 @@ public class BoardController {
         Page<BoardDTO> boardList = boardService.paging(pageable,orderCriteria);
         //System.out.println("boardList = " + boardList.toList());
         //System.out.println("boardList = " + boardList.getNumber());
-        System.out.println(boardList.getPageable());
+        //System.out.println(boardList.getPageable());
         //System.out.println(boardList.getNumberOfElements());
         //return boardList;
         int blockLimit = 3;

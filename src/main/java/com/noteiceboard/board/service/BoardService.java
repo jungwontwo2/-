@@ -110,6 +110,8 @@ public class BoardService {
         boardRepository.deleteById(id);
     }
 
+    //페이징 함수
+    //orderCriteria는 어떤 기준으로 정렬시킬건지
     public Page<BoardDTO> paging(Pageable pageable,String orderCriteria){
         //사용자에게는 1페이지로 보이지만 컴퓨터는 0부터 시작이므로 0페이지라고 말해줘야 함.
         int page= pageable.getPageNumber()-1;

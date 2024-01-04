@@ -25,10 +25,10 @@ public class BoardEntity extends BaseEntity{
     private String boardPass;
 
     @Column
-    String boardTitle;
+    private String boardTitle;
 
     @Column(length = 500)
-    String boardContents;
+    private String boardContents;
 
     @Column
     private int boardHits;
